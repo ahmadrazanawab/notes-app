@@ -14,7 +14,7 @@ dist-ssr
 
 
 # dotenv environment variable files
-notes-backend/.env
+.env
 .env.development.local
 .env.test.local
 .env.production.local
