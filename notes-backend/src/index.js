@@ -19,6 +19,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/user', require('./routes/user.router'));
+app.use('/api/notes', require('./routes/notes.router'));
 
 
 app.listen(port, () => {
