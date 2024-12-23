@@ -18,7 +18,6 @@ const SignUp: React.FC = () => {
             body: JSON.stringify({ name,email,number,password })
         });
         const json = await response.json();
-        console.log();
         if (response.ok) {
             localStorage.setItem('token', json.authtoken);
             navigate("/login");

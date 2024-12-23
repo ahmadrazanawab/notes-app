@@ -31,7 +31,6 @@ const ContextProvider: React.FC<childrenProps> = ({ children }) => {
         })
         const json = await response.json();
         setNotes(json);
-        console.log(json);
     }
     // add todo
 
@@ -47,9 +46,6 @@ const ContextProvider: React.FC<childrenProps> = ({ children }) => {
         })
         const note = await response.json();
         setNotes((prevTodo) => [...prevTodo, note]);
-        // setTodos([...todos, todo]);
-
-        console.log(note);
     }
 
 
@@ -64,10 +60,8 @@ const ContextProvider: React.FC<childrenProps> = ({ children }) => {
         })
 
         const json = await response.json()
-        console.log(json);
         const todoDelete = notes.filter((note) => note._id !== id);
         setNotes(todoDelete);
-        console.log(todoDelete);
     }
 
     // update todo
@@ -81,9 +75,7 @@ const ContextProvider: React.FC<childrenProps> = ({ children }) => {
             body:JSON.stringify({title,description,tag})
         })
         const json = await response.json();
-        console.log(json);
         setNotes(notes.map(note => (note._id === id ? { ...note, title, description, tag } : note)));
-        console.log("clicked the btn update id :=" + id);
     }
 
   return (
