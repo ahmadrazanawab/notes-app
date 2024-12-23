@@ -1,6 +1,5 @@
 import React, {useEffect, useState } from 'react'
 import { useContextTodo } from '../context/ContextProvider';
-import { ToastContainer} from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { Todo } from '../Todo';
 import TodoItem from './TodoItem';
@@ -74,7 +73,6 @@ const Todos: React.FC = () => {
                   </form>
               </div>
           </Model>
-          <ToastContainer />
         <div className='flex py-5 items-center justify-center flex-wrap'>
               {
                 notes && notes.map((note:Todo) => {
