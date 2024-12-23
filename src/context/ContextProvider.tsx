@@ -17,7 +17,7 @@ interface ContextTodos{
 const ContextApi = createContext<ContextTodos | null>(null);
 
 const ContextProvider: React.FC<childrenProps> = ({ children }) => {
-    const host = import.meta.env.VITE_API_URL;
+    const host = "https://notes-app-qa3n.onrender.com";
     const [notes, setNotes] = useState<Todo[]>([]);
 
     // get all todo
