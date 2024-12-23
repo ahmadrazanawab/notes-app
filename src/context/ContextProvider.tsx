@@ -17,9 +17,7 @@ interface ContextTodos{
 const ContextApi = createContext<ContextTodos | null>(null);
 
 const ContextProvider: React.FC<childrenProps> = ({ children }) => {
-    const host = "http://localhost:4002";
-    // const host = process.env.REACT_APP_HOST;
-    // const jwt_token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc2NjU3NDIwYTY4NGE0NjI4M2NlYmMyIn0sImlhdCI6MTczNDc2NzM0MH0.5smd-a5y9VMG15evBzAb6vlskgnBNvI6_5m-sDwf2gg"
+    const host = import.meta.env.VITE_API_URL;
     const [notes, setNotes] = useState<Todo[]>([]);
 
     // get all todo
