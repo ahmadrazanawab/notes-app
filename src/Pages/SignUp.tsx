@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 const SignUp: React.FC = () => {
     const [credentials, setCredentials] = useState({ name: "", email: "",number:"", password: "", cpassword: "" });
     const navigate = useNavigate();
-    const host = "http://localhost:4002";
+    const host = import.meta.env.VITE_API_URL;
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         const { name, email,number, password} = credentials;

@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 const SignIn: React.FC = () => {
     const [credentials, setCredentials] = useState({ email: "", password: "" });
     let navigate = useNavigate();
-    const host = "http://localhost:4002";
+    const host = import.meta.env.VITE_API_URL;
     const handleSubmit = async (e:React.SyntheticEvent) => {
         e.preventDefault();
         const response = await fetch(`${host}/api/user/login`, {
