@@ -6,7 +6,7 @@ const SignUp: React.FC = () => {
     const [credentials, setCredentials] = useState({ name: "", email: "",number:"", password: "", cpassword: "" });
     const navigate = useNavigate();
     // const host = import.meta.env.VITE_API_URL;
-    const host = import.meta.env.VITE_API_HOST
+    const host = "https://notes-app-qa3n.onrender.com"
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         const { name, email,number, password} = credentials;

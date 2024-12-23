@@ -5,7 +5,7 @@ const SignIn: React.FC = () => {
     const [credentials, setCredentials] = useState({ email: "", password: "" });
     let navigate = useNavigate();
     // const host = import.meta.env.VITE_API_URL;
-    const host = import.meta.env.VITE_API_HOST
+    const host ="https://notes-app-qa3n.onrender.com"
     const handleSubmit = async (e:React.SyntheticEvent) => {
         e.preventDefault();
         const response = await fetch(`${host}/api/user/login`, {
