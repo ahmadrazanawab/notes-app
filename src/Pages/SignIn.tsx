@@ -1,5 +1,7 @@
 import React,{useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const SignIn: React.FC = () => {
     const [credentials, setCredentials] = useState({ email: "", password: "" });
@@ -19,13 +21,29 @@ const SignIn: React.FC = () => {
         if (json.success) {
             //save the auth token and redirect
             localStorage.setItem('token', json.authtoken);
-            // props.showAlert("Logged in Successfully", "success");
-            alert("Logged in Successfully");
-            navigate("/");
+            toast.success("Logged in Successfully", {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+           await navigate("/");
         }
         else {
-            alert("Invalid crendentials");
-            // props.showAlert("Invalid Credentials","danger");
+            toast.error("Invalid crendentials. Please try again.", {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
         }
     }
     const onChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -34,6 +52,7 @@ const SignIn: React.FC = () => {
     return (
         <div className='w-full bg-[#f1f2f3]'>
             <div className='flex flex-col justify-center items-center py-10'>
+                <ToastContainer />
                 <form action="" onSubmit={handleSubmit} className='flex flex-col xl:w-[30%] md:w-[50%] w-[70%] my-2 bg-white shadow-md p-6 rounded'>
                     <h4 className='text-xl py-3 text-center text-gray-900 font-serif'>Login Form</h4>
                     <label htmlFor="email"  className='font-serif'>Email</label>

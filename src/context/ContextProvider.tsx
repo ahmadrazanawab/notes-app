@@ -1,11 +1,13 @@
 import React, { createContext, ReactNode, useContext, useState } from 'react';
 import { Todo } from '../Todo';
+import {toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 interface childrenProps {
     children: ReactNode;
 }
 
-interface ContextTodos{
+interface ContextTodos {
     notes: Todo[];
     setNotes: (todos: Todo[]) => void;
     addNote: (title: string, descriptin: string, tag: string) => void;
@@ -22,11 +24,11 @@ const ContextProvider: React.FC<childrenProps> = ({ children }) => {
 
     // get all todo
     const getallNotes = async () => {
-        const response = await fetch(`${host}/api/notes/fetchallnotes`,{
+        const response = await fetch(`${host}/api/notes/fetchallnotes`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "auth-token":localStorage.getItem('token') || ""
+                "auth-token": localStorage.getItem('token') || ""
             },
         })
         const json = await response.json();
@@ -34,15 +36,15 @@ const ContextProvider: React.FC<childrenProps> = ({ children }) => {
     }
     // add todo
 
-    const addNote = async(title:string,description:string,tag:string) => {
-        
-        const response = await fetch(`${host}/api/notes/addnote`,{
+    const addNote = async (title: string, description: string, tag: string) => {
+
+        const response = await fetch(`${host}/api/notes/addnote`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "auth-token":localStorage.getItem('token') || ""
+                "auth-token": localStorage.getItem('token') || ""
             },
-            body:JSON.stringify({title,description,tag})
+            body: JSON.stringify({ title, description, tag })
         })
         const note = await response.json();
         setNotes((prevTodo) => [...prevTodo, note]);
@@ -50,39 +52,71 @@ const ContextProvider: React.FC<childrenProps> = ({ children }) => {
 
 
     // delete todo
-    const deleteNote = async(id: number) => {
+    const deleteNote = async (id: number) => {
         const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
-                "auth-token":localStorage.getItem('token') || ""
+                "auth-token": localStorage.getItem('token') || ""
             },
         })
 
-        const json = await response.json()
+        const json = await response.json();
+        console.log(json);
+        if (response.ok) {
+            toast.success("Note has been deleted Successfully", {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+        }
+        else {
+            toast.error("Note did not delete. Please try again.");
+        }
         const todoDelete = notes.filter((note) => note._id !== id);
         setNotes(todoDelete);
     }
 
     // update todo
-    const editNote = async(id: number, title: string, description: string, tag: string) => {
-        const response = await fetch(`${host}/api/notes/updatenote/${id}`,{
+    const editNote = async (id: number, title: string, description: string, tag: string) => {
+        const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "auth-token":localStorage.getItem('token') || ""
+                "auth-token": localStorage.getItem('token') || ""
             },
-            body:JSON.stringify({title,description,tag})
+            body: JSON.stringify({ title, description, tag })
         })
         const json = await response.json();
+        if (response.ok) {
+            toast.success("Note has been updated Successfully", {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+        }
+        else {
+            toast.error("Note did not update. Please try again.");
+        }
+        console.log(json);
         setNotes(notes.map(note => (note._id === id ? { ...note, title, description, tag } : note)));
     }
 
-  return (
-    <ContextApi.Provider value={{notes,setNotes,addNote,deleteNote,editNote,getallNotes}}>
-      {children}
-    </ContextApi.Provider>
-  )
+    return (
+        <ContextApi.Provider value={{ notes, setNotes, addNote, deleteNote, editNote, getallNotes }}>
+            {children}
+        </ContextApi.Provider>
+    )
 }
 export const useContextTodo = () => {
     const context = useContext(ContextApi);
