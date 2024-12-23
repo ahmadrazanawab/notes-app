@@ -13,7 +13,7 @@ router.post('/createuser', [
     body('name', 'Enter a valid name').isLength({ min: 3 }),
     body('email', 'Enter a valid email').isEmail(),
     body('number', 'Enter your number').isLength({ min:10,max:10}),
-    body('password', 'Password must be atleast 5 characters').isLength({ min: 5 })
+    body('password', 'Password must be atleast 6 characters').isLength({ min: 6 })
 ], async (req, res) => {
     let success = false;
     try {
@@ -25,7 +25,9 @@ router.post('/createuser', [
         }
         const { name, email, number, password } = req.body;
         // Check whether the user with this email exists already
-        let user = await User.findOne({ email: email });
+        let user = await User.findOne({ 
+            $or:[{email: email,number:number}]
+         });
         if (user) {
             return res.status(400).json({success,error: "Sorry a user with this email already exists" })
         }
@@ -48,7 +50,7 @@ router.post('/createuser', [
         const authtoken = jwt.sign(data,process.env.JWT_SECRET);
         
         success = true;
-        res.json({success,authtoken });
+        res.json({success:true,authtoken });
     }
 
     catch (err) {

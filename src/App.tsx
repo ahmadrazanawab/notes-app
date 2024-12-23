@@ -19,7 +19,7 @@ const App: React.FC = () => {
             element: <><Navbar /><About /></>
         },
         {
-            path: '/signIn',
+            path: '/login',
             element: <><Navbar /><SignIn /></>
         },
         {

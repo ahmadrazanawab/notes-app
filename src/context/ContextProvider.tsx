@@ -19,7 +19,7 @@ const ContextApi = createContext<ContextTodos | null>(null);
 const ContextProvider: React.FC<childrenProps> = ({ children }) => {
     const host = "http://localhost:4002";
     // const host = process.env.REACT_APP_HOST;
-
+    // const jwt_token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc2NjU3NDIwYTY4NGE0NjI4M2NlYmMyIn0sImlhdCI6MTczNDc2NzM0MH0.5smd-a5y9VMG15evBzAb6vlskgnBNvI6_5m-sDwf2gg"
     const [notes, setNotes] = useState<Todo[]>([]);
 
     // get all todo
@@ -28,7 +28,7 @@ const ContextProvider: React.FC<childrenProps> = ({ children }) => {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "auth-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc2NjU3NDIwYTY4NGE0NjI4M2NlYmMyIn0sImlhdCI6MTczNDc2NzM0MH0.5smd-a5y9VMG15evBzAb6vlskgnBNvI6_5m-sDwf2gg"
+                "auth-token":localStorage.getItem('token') || ""
             },
         })
         const json = await response.json();
@@ -43,7 +43,7 @@ const ContextProvider: React.FC<childrenProps> = ({ children }) => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "auth-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc2NjU3NDIwYTY4NGE0NjI4M2NlYmMyIn0sImlhdCI6MTczNDgwOTI0NH0.nGTKjFu9ha1yYJ55EWEDvPkbG9UzFTQ7GcqFS_wnHCY"
+                "auth-token":localStorage.getItem('token') || ""
             },
             body:JSON.stringify({title,description,tag})
         })
@@ -61,7 +61,7 @@ const ContextProvider: React.FC<childrenProps> = ({ children }) => {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
-                "auth-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc2NjU3NDIwYTY4NGE0NjI4M2NlYmMyIn0sImlhdCI6MTczNDgwOTI0NH0.nGTKjFu9ha1yYJ55EWEDvPkbG9UzFTQ7GcqFS_wnHCY"
+                "auth-token":localStorage.getItem('token') || ""
             },
         })
 
@@ -78,7 +78,7 @@ const ContextProvider: React.FC<childrenProps> = ({ children }) => {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "auth-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc2NjU3NDIwYTY4NGE0NjI4M2NlYmMyIn0sImlhdCI6MTczNDgwOTI0NH0.nGTKjFu9ha1yYJ55EWEDvPkbG9UzFTQ7GcqFS_wnHCY"
+                "auth-token":localStorage.getItem('token') || ""
             },
             body:JSON.stringify({title,description,tag})
         })
