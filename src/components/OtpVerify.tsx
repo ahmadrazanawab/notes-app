@@ -7,9 +7,8 @@ import { useNavigate } from 'react-router-dom'
 const OtpVerify: React.FC = () => {
     const [code, setCode] = useState<string>('');
     const navigate = useNavigate();
-    // const host = import.meta.env.VITE_API_URL;
-    // const host = "https://notes-app-qa3n.onrender.com";
-    const host = "http://localhost:4002";
+    const host = "https://notes-app-qa3n.onrender.com";
+    // const host = "http://localhost:4002";
     const handleOtpSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         const response = await fetch(`${host}/api/user/verifyemail`, {

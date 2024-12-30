@@ -89,8 +89,8 @@ const welcomEmailTemplate = `<!DOCTYPE html>
   </head>
   <body>
     <div class="container">
-      <h1>Hello {name},</h1>
-      <p>We're thrilled to have you join us! Your registration was successful, and we are committed to pro</p>
+      <h1>Hello {name} ,</h1>
+      <p>We're thrilled to have you join us! Your registration was successful, and we are committed to notes</p>
       <p>Click the button below to explore:</p>
       <p><a href="{appLink}" target="_blank">Get Started</a></p>
       <p>If you have any questions, feel free to reach out to our support team.</p>

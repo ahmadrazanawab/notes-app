@@ -62,8 +62,7 @@ const ContextProvider: React.FC<childrenProps> = ({ children }) => {
             },
         })
 
-        const json = await response.json();
-        console.log(json);
+        await response.json();
         if (response.ok) {
             toast.success("Note has been deleted Successfully", {
                 position: "top-center",
@@ -93,7 +92,7 @@ const ContextProvider: React.FC<childrenProps> = ({ children }) => {
             },
             body: JSON.stringify({ title, description, tag })
         })
-        const json = await response.json();
+        await response.json();
         if (response.ok) {
             toast.success("Note has been updated Successfully", {
                 position: "top-center",
@@ -109,7 +108,6 @@ const ContextProvider: React.FC<childrenProps> = ({ children }) => {
         else {
             toast.error("Note did not update. Please try again.");
         }
-        console.log(json);
         setNotes(notes.map(note => (note._id === id ? { ...note, title, description, tag } : note)));
     }
 

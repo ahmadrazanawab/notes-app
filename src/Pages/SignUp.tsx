@@ -20,12 +20,10 @@ const SignUp: React.FC = () => {
             body: JSON.stringify({ name, email, number, password })
         });
         const json = await response.json();
-        console.log(json);
-        console.log(json.isVerified);
+        console.log(json.verificationCode);
         
         if (response.ok) {
             // localStorage.setItem('token', json.authtoken);
-            console.log(json.isVerified);
             navigate("/otpverify");
             toast.success("Account Created Successfully", {
                 position: "top-center",

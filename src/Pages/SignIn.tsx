@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 const SignIn: React.FC = () => {
     const [credentials, setCredentials] = useState({ email: "", password: "" });
     let navigate = useNavigate();
-    // const host = import.meta.env.VITE_API_URL;
     const host = "https://notes-app-qa3n.onrender.com";
     // const host = "http://localhost:4002";
     const handleSubmit = async (e:React.SyntheticEvent) => {
@@ -19,7 +18,6 @@ const SignIn: React.FC = () => {
             body: JSON.stringify({ email: credentials.email, password: credentials.password })
         });
         const json = await response.json();
-        console.log(json.isVerified);
         if (json.success) {
             //save the auth token and redirect
             localStorage.setItem('token', json.authtoken);
