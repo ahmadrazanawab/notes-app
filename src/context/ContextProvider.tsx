@@ -20,6 +20,7 @@ const ContextApi = createContext<ContextTodos | null>(null);
 
 const ContextProvider: React.FC<childrenProps> = ({ children }) => {
     const host = "https://notes-app-qa3n.onrender.com";
+    // const host = "http://localhost:4002";
     const [notes, setNotes] = useState<Todo[]>([]);
 
     // get all todo

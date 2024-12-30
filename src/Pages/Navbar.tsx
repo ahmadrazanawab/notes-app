@@ -18,15 +18,12 @@ const Navbar: React.FC = () => {
     const links: link[] = [
         { id: 1, name: 'Home', to: '/' },
         { id: 2, name: 'About', to: '/about' },
-        // { id: 3, name: 'Login', to: '/login' },
-        // { id: 4, name: 'SignUp', to: '/signUp' },
     ]
     return (
         <nav className='shadow-md flex  justify-between  min-h-[60px] items-center   border-b-2 border-blue-500 bg-[#f8f9f9]'>
             <div>
                 <Link to='/' className='text-blue-600 text-xl font-serif mx-4'>Todo<strong className='text-green-600'>App</strong></Link>
             </div>
-
             <div className='md:mt-0'>
                 <ul className={`md:flex md:bg-[#f8f9f9]  bg-slate-300 w-full md:mx-2 mx-0 md:my-0 my-5 md:flex-row md:static flex-col left-0 mx:z-10 z-0 absolute duration-500 ease-in-out ${open === true ? 'top-10 opacity-0' : 'left-[-895px]'} opacity-100`}>
                     {

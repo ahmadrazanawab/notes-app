@@ -7,8 +7,8 @@ import "react-toastify/dist/ReactToastify.css";
 const SignUp: React.FC = () => {
     const [credentials, setCredentials] = useState({ name: "", email: "", number: "", password: "", cpassword: "" });
     const navigate = useNavigate();
-    // const host = import.meta.env.VITE_API_URL;
-    const host = "https://notes-app-qa3n.onrender.com"
+    const host = "https://notes-app-qa3n.onrender.com";
+    // const host = "http://localhost:4002";
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         const { name, email, number, password } = credentials;
@@ -20,8 +20,13 @@ const SignUp: React.FC = () => {
             body: JSON.stringify({ name, email, number, password })
         });
         const json = await response.json();
+        console.log(json);
+        console.log(json.isVerified);
+        
         if (response.ok) {
-            localStorage.setItem('token', json.authtoken);
+            // localStorage.setItem('token', json.authtoken);
+            console.log(json.isVerified);
+            navigate("/otpverify");
             toast.success("Account Created Successfully", {
                 position: "top-center",
                 autoClose: 2000,
@@ -32,7 +37,6 @@ const SignUp: React.FC = () => {
                 progress: undefined,
                 theme: "light",
             })
-           navigate("/login");
         } else {
             toast.error("Invalid crendentials. Please try again.", {
                 position: "top-center",

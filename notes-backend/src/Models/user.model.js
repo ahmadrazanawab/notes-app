@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { type } = require('os');
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
@@ -20,6 +21,14 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true,
+    },
+    isVerified: {
+        type: Boolean,
+        default:false
+    },
+    verificationCode: {
+        type: String,
+        default:''
     }
 },
     {
