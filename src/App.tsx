@@ -8,6 +8,8 @@ import SignIn from './Pages/SignIn'
 import SignUp from './Pages/SignUp'
 import ContextProvider from './context/ContextProvider'
 import OtpVerify from './components/OtpVerify'
+import ForgetPassword from './components/ForgetPassword'
+import CreateNewPassword from './components/CreateNewPassword'
 
 const App: React.FC = () => {
     const router = createBrowserRouter([
@@ -30,6 +32,14 @@ const App: React.FC = () => {
         {
             path: '/otpverify',
             element: <><Navbar /><OtpVerify/></>
+        },
+        {
+            path: '/forgetpassword',
+            element: <><Navbar /><ForgetPassword /></>
+        },
+        {
+            path: '/createnewpassword',
+            element: <><Navbar /><CreateNewPassword /></>
         },
 
     ])
