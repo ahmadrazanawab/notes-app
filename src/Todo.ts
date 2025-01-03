@@ -5,3 +5,11 @@ export interface Todo{
     isActive: boolean;
     tag: string;
 }
+
+
+export interface credentialsProps{
+    name: string;
+    email: string;
+    number: number;
+    password: string;
+}

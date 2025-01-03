@@ -35,11 +35,19 @@ const WelcomeEmail = async (email,name) => {
     }
 }
 
-module.exports =sendVarification,WelcomeEmail;
-//Send the email
-// transporter.sendMail(mailOptions, (error, info) => {
-//   if (error) {
-//     return console.error(`Error: ${error}`);
-//   }
-//   console.log(`Email sent: ${info.response}`);
-// });
+
+const ResetPasswordSet = async (email,verificationCode) => {
+    try {
+        const response = await transporter.sendMail({
+            from: '"CodeWithAhmad" <codewithahmad0786@gmail.com>', // sender address
+            to: email, 
+            subject: "Reset Password", // Subject line
+            text: "Hello world?", // plain text body
+            html:VerificationTamplate.replace("{verificationCode}",verificationCode),// html body
+        });
+        console.log("Email send successfully",response);
+    } catch (error) {
+        console.log("Email Error");
+    }
+}
+module.exports =sendVarification,WelcomeEmail,ResetPasswordSet;

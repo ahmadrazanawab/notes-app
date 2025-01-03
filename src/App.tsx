@@ -10,9 +10,13 @@ import ContextProvider from './context/ContextProvider'
 import OtpVerify from './components/OtpVerify'
 import ForgetPassword from './components/ForgetPassword'
 import CreateNewPassword from './components/CreateNewPassword'
+import ErrorPage from './Pages/ErrorPage'
 
 const App: React.FC = () => {
     const router = createBrowserRouter([
+        {
+            errorElement:<><Navbar /><ErrorPage /></>
+        },
         {
             path: '/',
             element: <><Navbar /><Home /></>
@@ -38,7 +42,7 @@ const App: React.FC = () => {
             element: <><Navbar /><ForgetPassword /></>
         },
         {
-            path: '/createnewpassword',
+            path: '/createnewpassword/:_id/:authtoken',
             element: <><Navbar /><CreateNewPassword /></>
         },
 
