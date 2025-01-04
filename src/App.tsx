@@ -11,6 +11,7 @@ import OtpVerify from './components/OtpVerify'
 import ForgetPassword from './components/ForgetPassword'
 import CreateNewPassword from './components/CreateNewPassword'
 import ErrorPage from './Pages/ErrorPage'
+import ChangePassword from './components/ChangePassword'
 
 const App: React.FC = () => {
     const router = createBrowserRouter([
@@ -44,6 +45,10 @@ const App: React.FC = () => {
         {
             path: '/createnewpassword/:_id/:authtoken',
             element: <><Navbar /><CreateNewPassword /></>
+        },
+        {
+            path: '/changepassword',
+            element: <><Navbar /><ChangePassword /></>
         },
 
     ])

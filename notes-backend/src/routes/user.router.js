@@ -59,7 +59,7 @@ router.post('/createuser', [
         const authtoken = jwt.sign(data, process.env.JWT_SECRET);
 
         success = true;
-        res.json({ success: true, authtoken,userEmail:user.email });
+        res.json({ success: true, authtoken, userEmail: user.email });
     }
 
     catch (err) {
@@ -156,7 +156,7 @@ router.post('/userforgotpassword', async (req, res) => {
             return res.status(401).json({ success: false, message: "Email not found" });
         }
         const secret = user.id + process.env.JWT_SECRET;
-        const authtoken = await jwt.sign({ userId: user.id }, secret,{expiresIn:"15m"});
+        const authtoken = await jwt.sign({ userId: user.id }, secret, { expiresIn: "15m" });
         const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
         user.verificationCode = verificationCode
         await user.save();
@@ -164,7 +164,7 @@ router.post('/userforgotpassword', async (req, res) => {
             ResetPasswordSet(user.email, user.verificationCode);
             let link = `http://localhost:4002/api/auth/resetpassword/${user.id}/${authtoken}`;
             console.log(link);
-            res.status(200).json({ success: true, message: "Password is forgot successfully",user:user.id,authtoken});
+            res.status(200).json({ success: true, message: "Password is forgot successfully", user: user.id, authtoken });
         }
         else {
             res.status(401).json({ success: false, message: "Email not found" });
@@ -196,12 +196,12 @@ router.post('/usercreatenewpassword/:id/:authtoken', async (req, res) => {
             const salt = await bcrypt.genSalt(10);
             const newPassword = await bcrypt.hash(password, salt);
             await User.findByIdAndUpdate(user.id, { $set: { password: newPassword } });
-        
+
             user.verificationCode = undefined;
             await user.save();
             await WelcomeEmail(user1.email, user1.name);
 
-            res.status(200).json({ success: true, message: "Password new set Successfully"});
+            res.status(200).json({ success: true, message: "Password new set Successfully" });
         }
     } catch (error) {
         console.log("Create Password error", error);
@@ -209,8 +209,35 @@ router.post('/usercreatenewpassword/:id/:authtoken', async (req, res) => {
     }
 })
 
-//Route:5 Authenticate a user using POST "/api/auth/getuser". No Login required
+//Route:5 change password  using POST Login required.
+router.post('/changepassword', fetchuser, async (req, res) => {
+    try {
+        const { password, oldPassword } = req.body;
+        if (!password || !oldPassword) {
+            res.status(401).json({ success: false, message: "Both old and new passwords are required" });
+        }
+        const user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
 
+        // Verify old password
+        const isMatch = await bcrypt.compare(oldPassword, user.password);
+        if (!isMatch) {
+            return res.status(401).json({ success: false, message: "Old password is incorrect" });
+        }
+        const salt = await bcrypt.genSalt(10);
+        const newPassword = await bcrypt.hash(password, salt);
+        await User.findByIdAndUpdate(req.user.id, { $set: { password: newPassword } });
+        res.status(200).json({ success: true, message: "Password changed successufully" });
+
+    } catch (error) {
+        console.log("change password error..", error);
+        res.status(500).json({ success: false, error: "internal server error" });
+    }
+})
+
+//Route:6 Authenticate a user using POST "/api/auth/getuser". No Login required
 router.post('/getuser', fetchuser, async (req, res) => {
 
     try {
