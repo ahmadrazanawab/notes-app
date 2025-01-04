@@ -8,8 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 const ChangePassword: React.FC = () => {
     const { user }: any = useContextTodo();
     const [passwords, setPasswords] = useState({ password: "", oldPassword: "" });
-    // const host = "https://notes-app-qa3n.onrender.com";
-    const host = "http://localhost:4002";
+    const host = "https://notes-app-qa3n.onrender.com";
+    // const host = "http://localhost:4002";
     let navigate = useNavigate();
     const handleChangePassword = async (e: React.SyntheticEvent) => {
         e.preventDefault();

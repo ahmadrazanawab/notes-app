@@ -10,8 +10,8 @@ const SignUp: React.FC = () => {
     // const [credentials, setCredentials] = useState({ name: "", email: "", number: "", password: ""});
     const {credentials, setCredentials }:any = useContextTodo()
     const navigate = useNavigate();
-    // const host = "https://notes-app-qa3n.onrender.com";
-    const host = "http://localhost:4002";
+    const host = "https://notes-app-qa3n.onrender.com";
+    // const host = "http://localhost:4002";
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         const { name, email, number, password } = credentials;

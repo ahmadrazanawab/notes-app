@@ -7,8 +7,8 @@ import { useContextTodo } from '../context/ContextProvider';
 const ForgetPassword: React.FC = () => {
     // const [email, setEmail] = useState('');
     const { email, setEmail}:any = useContextTodo();
-    // const host = "https://notes-app-qa3n.onrender.com";
-    const host = "http://localhost:4002";
+    const host = "https://notes-app-qa3n.onrender.com";
+    // const host = "http://localhost:4002";
     const navigate = useNavigate();
     const handleForgotPassword = async (e: React.SyntheticEvent) => {
         e.preventDefault();
