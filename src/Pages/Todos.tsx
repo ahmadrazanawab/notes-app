@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useContextTodo } from '../context/ContextProvider';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Todo } from '../Todo';
 import TodoItem from './TodoItem';
@@ -51,18 +50,7 @@ const Todos: React.FC = () => {
     return (
         <div className='bg-slate-50'>
             <AddTodo />
-            <ToastContainer
-                position="top-center"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick={false}
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
+            
             <Model isVisible={showModal} onClose={() => setShowModal(false)} >
                 <div className="mb-4 px-6 text-left">
                     <h3 className="mb-4 text-xl font-medium text-gray-900">Edit Note</h3>

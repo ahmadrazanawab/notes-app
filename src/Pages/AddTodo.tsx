@@ -8,18 +8,44 @@ const AddTodo: React.FC = () => {
     const [note, setNote] = useState({ title: '', description: '', tag: '' });
     const handleAddTodo = (e: React.SyntheticEvent) => {
         e.preventDefault();
-        addNote(note.title, note.description, note.tag);
-        setNote({ title: '', description: '', tag: '' });
-        toast.success("Note has been added Successfully", {
-            position: "top-center",
-            autoClose: 1000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-        })
+        if (!note.title || !note.description) {
+            toast.error("title and description can not be blank!", {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+        }
+        else if (note.title.length < 3 || note.description.length < 5) {
+            toast.error("title and decription must be 3 & 5 characters!", {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+        }
+        else {
+            addNote(note.title, note.description, note.tag);
+            setNote({ title: '', description: '', tag: '' });
+            toast.success("Note has been added Successfully", {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+        }
     }
     const onchange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setNote({ ...note, [e.target.name]: e.target.value });
