@@ -79,7 +79,7 @@ const Navbar: React.FC = () => {
             <div className='flex justify-center items-center'>
                 {!localStorage.getItem('token') ? (<>
                     <Link to='/login' className='border-[1px] border-gray-900 text-sm px-2 py-1 md:mx-1 rounded bg-sky-600 mx-1 text-white font-serif md:my-0'>Login</Link>
-                    <Link to='/signUp' className='border-[1px] border-gray-900 text-sm px-2 py-1 md:mr-4 rounded bg-sky-600 mx-1 text-white font-serif md:my-0'>Sign Up</Link>
+                    <Link to='/signUp' className='border-[1px] border-gray-900 text-sm px-2 py-1 md:mr-4 mr-2 rounded bg-sky-600 mx-1 text-white font-serif md:my-0'>Sign Up</Link>
                 </>) : <>
                     <button onClick={showModalBtn}
                         className='w-10 h-10 mx-3 bg-blue-400 text-black font-serif text-xl rounded-full border-[1px] border-gray-900'>
