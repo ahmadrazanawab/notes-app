@@ -10,8 +10,8 @@ const CreateNewPassword: React.FC = () => {
     const { email,setEmail}:any = useContextTodo();
     
     
-    // const host = "https://notes-app-qa3n.onrender.com";
-    const host = "http://localhost:4002";
+    const host = "https://notes-app-qa3n.onrender.com";
+    // const host = "http://localhost:4002";
 
     const { _id, authtoken } = useParams<{ _id: string; authtoken: string }>();
     if (!_id || !authtoken) {

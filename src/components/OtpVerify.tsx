@@ -9,8 +9,8 @@ const OtpVerify: React.FC = () => {
     const [code, setCode] = useState<string>('');
     const { credentials,setCredentials }:any = useContextTodo();
     const navigate = useNavigate();
-    // const host = "https://notes-app-qa3n.onrender.com";
-    const host = "http://localhost:4002";
+    const host = "https://notes-app-qa3n.onrender.com";
+    // const host = "http://localhost:4002";
     const handleOtpSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         const response = await fetch(`${host}/api/user/verifyemail`, {

@@ -15,7 +15,7 @@ import ErrorPage from './Pages/ErrorPage'
 const App: React.FC = () => {
     const router = createBrowserRouter([
         {
-            errorElement:<><Navbar /><ErrorPage /></>
+            errorElement: <><Navbar /><ErrorPage /></>
         },
         {
             path: '/',

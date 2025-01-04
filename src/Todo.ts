@@ -13,3 +13,9 @@ export interface credentialsProps{
     number: number;
     password: string;
 }
+
+export interface getUserProps{
+    name: string;
+    email: string;
+    number?: number;
+}

@@ -1,6 +1,6 @@
 import React, { createContext, ReactNode, useContext, useState } from 'react';
-import { Todo,credentialsProps } from '../Todo';
-import {toast } from 'react-toastify';
+import { Todo, credentialsProps, getUserProps } from '../Todo';
+import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
 interface childrenProps {
@@ -15,6 +15,9 @@ interface ContextTodos {
     deleteNote: (id: number) => void;
     editNote: (id: number, title: string, descriptin: string, tag: string) => void;
     getallNotes: () => void;
+    fetchUser: () => void;
+    user: getUserProps[];
+    setUser: (user: getUserProps[]) => void;
     credentials: credentialsProps[],
     setCredentials: (credentials: credentialsProps[]) => void;
     email: string,
@@ -24,11 +27,27 @@ interface ContextTodos {
 const ContextApi = createContext<ContextTodos | null>(null);
 
 const ContextProvider: React.FC<childrenProps> = ({ children }) => {
-    // const host = "https://notes-app-qa3n.onrender.com";
-    const host = "http://localhost:4002";
+    const host = "https://notes-app-qa3n.onrender.com";
+    // const host = "http://localhost:4002";
     const [notes, setNotes] = useState<Todo[]>([]);
     const [credentials, setCredentials] = useState<credentialsProps[]>([]);
-     const [email, setEmail] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [user, setUser] = useState<getUserProps[]>([]);
+
+    // fetch user 
+    const fetchUser = async () => {
+        const response = await fetch(`${host}/api/user/getuser`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": localStorage.getItem('token') || ""
+            },
+        })
+        const json = await response.json()
+        console.log(json);
+        setUser(json);
+    }
+
 
     // get all todo
     const getallNotes = async () => {
@@ -119,7 +138,7 @@ const ContextProvider: React.FC<childrenProps> = ({ children }) => {
     }
 
     return (
-        <ContextApi.Provider value={{ credentials, setCredentials,notes, setNotes, addNote, deleteNote, editNote, getallNotes,email, setEmail}}>
+        <ContextApi.Provider value={{ credentials, setCredentials, notes, setNotes, addNote, deleteNote, editNote, getallNotes, fetchUser, user, setUser, email, setEmail }}>
             {children}
         </ContextApi.Provider>
     )
