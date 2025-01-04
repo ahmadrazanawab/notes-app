@@ -27,8 +27,8 @@ interface ContextTodos {
 const ContextApi = createContext<ContextTodos | null>(null);
 
 const ContextProvider: React.FC<childrenProps> = ({ children }) => {
-    const host = "https://notes-app-qa3n.onrender.com";
-    // const host = "http://localhost:4002";
+    // const host = "https://notes-app-qa3n.onrender.com";
+    const host = "http://localhost:4002";
     const [notes, setNotes] = useState<Todo[]>([]);
     const [credentials, setCredentials] = useState<credentialsProps[]>([]);
     const [email, setEmail] = useState<string>('');

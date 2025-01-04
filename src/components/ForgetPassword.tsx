@@ -7,8 +7,8 @@ import { useContextTodo } from '../context/ContextProvider';
 const ForgetPassword: React.FC = () => {
     // const [email, setEmail] = useState('');
     const { email, setEmail}:any = useContextTodo();
-    const host = "https://notes-app-qa3n.onrender.com";
-    // const host = "http://localhost:4002";
+    // const host = "https://notes-app-qa3n.onrender.com";
+    const host = "http://localhost:4002";
     const navigate = useNavigate();
     const handleForgotPassword = async (e: React.SyntheticEvent) => {
         e.preventDefault();
@@ -21,7 +21,6 @@ const ForgetPassword: React.FC = () => {
         })
         const json = await response.json();
         if (json.success === true) {
-            navigate(`/createnewpassword/${json.user}/${json.authtoken}`);
             // localStorage.setItem('token', json.authtoken);
             // alert("password is reset succussfully");
             toast.success("Send OTP  succussfully", {
@@ -34,6 +33,12 @@ const ForgetPassword: React.FC = () => {
                 progress: undefined,
                 theme: "light",
             })
+
+            // navigate(`/createnewpassword/${json.user}/${json.authtoken}`);
+            
+            setTimeout(() => {
+                navigate(`/createnewpassword/${json.user}/${json.authtoken}`);
+            }, 3000);
         }
         else {
             toast.error("Email Not found", {
@@ -54,7 +59,7 @@ const ForgetPassword: React.FC = () => {
         <div className='min-h-[100vh] w-full bg-[#f1f2f3]'>
             <div className='flex flex-col justify-center items-center py-10'>
                 <ToastContainer />
-                <form action="" onSubmit={handleForgotPassword} className='flex flex-col xl:w-[30%] md:w-[50%] w-[70%] my-2 bg-white shadow-md p-6 rounded'>
+                <form action="" onSubmit={handleForgotPassword} className='flex flex-col xl:w-[30%] md:w-[50%] sm:w-[70%] w-[90%] my-2 bg-white shadow-md p-6 rounded'>
                     <h4 className='text-xl py-3 text-center text-gray-900 font-serif'>Find your email</h4>
                     <label htmlFor="email" className='font-serif'>Email Address</label>
                     <input type="email" value={email} onChange={(e) => { setEmail(e.target.value) }} className='px-1 py-1 mb-1 border-[1px] border-gray-900 rounded outline-none' name="email" id="email" placeholder='Enter your email' />

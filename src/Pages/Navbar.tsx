@@ -4,6 +4,8 @@ import { MdMenu } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
 import AuthModal from '../components/AuthModal';
 import { useContextTodo } from '../context/ContextProvider';
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const Navbar: React.FC = () => {
     const [open, setOpen] = useState<boolean>(false);
@@ -16,9 +18,22 @@ const Navbar: React.FC = () => {
         hover?: string;
     }
     let navigate = useNavigate();
-    const handleLogout = () => {
+    const handleLogout = (e: React.SyntheticEvent) => {
+        e.preventDefault();
         localStorage.removeItem('token');
-        navigate("/login");
+        toast.success("Log out Successfully", {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+        setTimeout(() => {
+            navigate("/login");
+        }, 2000);
     }
 
     const [showModal, setShowModal] = useState<boolean>(false);
@@ -27,9 +42,14 @@ const Navbar: React.FC = () => {
     }
     const onClosed = (e: React.SyntheticEvent) => {
         e.preventDefault();
-        navigate('/changepassword');
         setShowModal(false);
     }
+
+    // Combined handler
+    const handleBothActions = (e: React.SyntheticEvent) => {
+        handleLogout(e);
+        onClosed(e);
+    };
     const links: link[] = [
         { id: 1, name: 'Home', to: '/', },
         { id: 2, name: 'About', to: '/about' },
@@ -72,11 +92,11 @@ const Navbar: React.FC = () => {
                         </h4>
                     </div>
                     <form action="" className="space-y-2">
-                        <h1 className='text-xl font-serif'>{user.name}</h1>
-                        <p className='font-serif bg-slate-200 shadow-sm rounded px-2 py-1 text-[#007ac6] cursor-pointer'>{user.email}</p>
+                        <h1 className='md:text-xl text-sm font-serif'>{user.name}</h1>
+                        <p className='font-serif bg-slate-200 shadow-sm rounded px-2 py-1 text-[#007ac6] text-sm cursor-pointer'>{user.email}</p>
                         <p className='font-semibold cursor-pointer'>Mob: {user.number}</p>
-                        <button onClick={onClosed} className='text-[#007ac6] underline font-serif'>Change Password</button>
-                        <button onClick={handleLogout} className='bg-sky-400  text-sm text-white  w-[100%] font-serif px-2 py-1 rounded'>Logout</button>
+                        <Link to='/changepassword' onClick={() => { setShowModal(false) }} className='text-[#007ac6] underline font-serif'>Change Password</Link>
+                        <button onClick={handleBothActions} className='bg-sky-400  text-sm text-white  w-[100%] font-serif px-2 py-1 rounded'>Logout</button>
                     </form>
                 </div>
             </AuthModal>

@@ -5,12 +5,13 @@ import "react-toastify/dist/ReactToastify.css";
 import { useContextTodo } from '../context/ContextProvider';
 
 
+
 const SignUp: React.FC = () => {
     // const [credentials, setCredentials] = useState({ name: "", email: "", number: "", password: ""});
     const {credentials, setCredentials }:any = useContextTodo()
     const navigate = useNavigate();
-    const host = "https://notes-app-qa3n.onrender.com";
-    // const host = "http://localhost:4002";
+    // const host = "https://notes-app-qa3n.onrender.com";
+    const host = "http://localhost:4002";
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         const { name, email, number, password } = credentials;
@@ -26,9 +27,8 @@ const SignUp: React.FC = () => {
         console.log(json.verificationCode);
         if (response.ok) {
             // localStorage.setItem('token', json.authtoken);
-            navigate("/otpverify");
-            setCredentials('');
-            toast.success("Account Created Successfully", {
+            setCredentials({name:'',email:'',number:'',password:''});
+            toast.success("Send OTP your email Successfully", {
                 position: "top-center",
                 autoClose: 2000,
                 hideProgressBar: false,
@@ -37,7 +37,11 @@ const SignUp: React.FC = () => {
                 draggable: true,
                 progress: undefined,
                 theme: "light",
-            })
+            });
+            
+            setTimeout(() => {
+                navigate("/otpverify");
+            }, 3000);
         } else {
             toast.error("Invalid crendentials. Please try again.", {
                 position: "top-center",
@@ -58,7 +62,7 @@ const SignUp: React.FC = () => {
     return (
         <div className='w-full md:min-h-[80vh] bg-[#f1f2f3]'>
             <div className='flex flex-col justify-center items-center py-2'>
-                <form action="" onSubmit={handleSubmit} className='flex flex-col md:w-[50%] xl:w-[30%] w-[80%] my-2 bg-white shadow-sm p-6 rounded'>
+                <form action="" onSubmit={handleSubmit} className='flex flex-col md:w-[50%] xl:w-[30%] sm:w-[70%] w-[90%] my-2 bg-white shadow-sm p-6 rounded'>
                     <ToastContainer />
                     <h4 className='text-xl py-1 text-center text-gray-900 font-serif'>Sign Up</h4>
                     <label htmlFor="name">Name</label>

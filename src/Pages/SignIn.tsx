@@ -8,10 +8,11 @@ const SignIn: React.FC = () => {
     // const [credentials, setCredentials] = useState({ email: "", password: "" });
     const { credentials, setCredentials}:any = useContextTodo();
     let navigate = useNavigate();
-    const host = "https://notes-app-qa3n.onrender.com";
-    // const host = "http://localhost:4002";
+    // const host = "https://notes-app-qa3n.onrender.com";
+    const host = "http://localhost:4002";
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
+
         const response = await fetch(`${host}/api/user/login`, {
             method: 'POST',
             headers: {
@@ -23,7 +24,6 @@ const SignIn: React.FC = () => {
         if (json.success) {
             //save the auth token and redirect
             localStorage.setItem('token', json.authtoken);
-            navigate("/");
             toast.success("Logged in Successfully", {
                 position: "top-center",
                 autoClose: 2000,
@@ -33,7 +33,12 @@ const SignIn: React.FC = () => {
                 draggable: true,
                 progress: undefined,
                 theme: "light",
-            })
+            });
+
+            setCredentials({ email: '', password: '' });
+            setTimeout(() => {
+                navigate("/");
+            }, 3000);
         }
         else {
             toast.error("Invalid crendentials. Please try again.", {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useContextTodo } from '../context/ContextProvider';
 import { ToastContainer, toast } from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css";
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddTodo: React.FC = () => {
     const { addNote }: any = useContextTodo();
@@ -12,9 +12,9 @@ const AddTodo: React.FC = () => {
         setNote({ title: '', description: '', tag: '' });
         toast.success("Note has been added Successfully", {
             position: "top-center",
-            autoClose: 2000,
+            autoClose: 1000,
             hideProgressBar: false,
-            closeOnClick: true,
+            closeOnClick: false,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
@@ -27,7 +27,7 @@ const AddTodo: React.FC = () => {
     return (
         <div className='bg-slate-50'>
             <div className='bg-slate-50 pt-10 pb-4 flex justify-center items-center'>
-                 <ToastContainer />
+                <ToastContainer />
                 <form action="" onSubmit={handleAddTodo} className='flex flex-col md:w-[500px]  bg-white mx-10 p-6 shadow-md rounded'>
                     <label htmlFor="title">Title</label>
                     <input type="text" value={note.title} onChange={onchange} name='title' className='px-2 py-2  border-[1px] border-gray-900 outline-none rounded my-1' placeholder='Enter your title' />
