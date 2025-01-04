@@ -43,8 +43,7 @@ const ContextProvider: React.FC<childrenProps> = ({ children }) => {
                 "auth-token": localStorage.getItem('token') || ""
             },
         })
-        const json = await response.json()
-        console.log(json);
+        const json = await response.json();
         setUser(json);
     }
 

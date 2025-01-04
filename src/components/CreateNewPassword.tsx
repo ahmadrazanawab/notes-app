@@ -29,7 +29,6 @@ const CreateNewPassword: React.FC = () => {
             body: JSON.stringify({ password, code })
         });
         const json = await response.json();
-        console.log(json);
         if (json.success === true) {
             navigate('/login');
             alert("Password is new created successfully");

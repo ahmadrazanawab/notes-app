@@ -24,10 +24,8 @@ const SignUp: React.FC = () => {
         const json = await response.json();
 
         console.log(json.verificationCode);
-        console.log(json);
         if (response.ok) {
             // localStorage.setItem('token', json.authtoken);
-            console.log(response.ok)
             navigate("/otpverify");
             setCredentials('');
             toast.success("Account Created Successfully", {
