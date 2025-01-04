@@ -12,7 +12,7 @@ const AuthModal: React.FC<ModalProps> = ({ isVisible, onClose, children }) => {
         if ((e.target as HTMLElement).id === "wrapper") onClose();
     }
     return (
-        <div className='flex absolute w-[100px] md:right-[220px] right-[190px]'>
+        <div className='flex absolute sm:w-[100px] w-[50px] md:right-[220px] right-[240px]'>
             <div className="fixed border-[1px] rounded border-black  flex justify-center mx-2 mt-10" id="wrapper" onClick={handleClose}>
                 <div className="md:w-[300px]">
                     <div className="bg-white p-2 rounded flex flex-col"><IoCloseSharp size={25} onClick={() => onClose()} className="place-self-end cursor-pointer " />{children}</div>
