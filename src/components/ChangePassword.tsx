@@ -3,13 +3,9 @@ import { Link } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
 import { useContextTodo } from '../context/ContextProvider';
 
-interface passwordProps {
-    oldPassword: string;
-    password: string;
-}
 const ChangePassword: React.FC = () => {
     const { user }: any = useContextTodo();
-    const [passwords, setPasswords] = useState<passwordProps>({ password: '', oldPassword: '' });
+    const [passwords, setPasswords] = useState({ password: '', oldPassword: '' });
     const host = "https://notes-app-qa3n.onrender.com";
     // const host = "http://localhost:4002";
     const handleChangePassword = async (e: React.SyntheticEvent) => {
