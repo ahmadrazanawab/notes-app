@@ -99,4 +99,6 @@ const welcomEmailTemplate = `<!DOCTYPE html>
   </body>
   </html>`
 
-module.exports = VerificationTamplate,welcomEmailTemplate;
+export {
+    VerificationTamplate, welcomEmailTemplate
+}
