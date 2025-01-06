@@ -44,8 +44,6 @@ const VerificationTamplate = `<!DOCTYPE html>
 </html>
 `
 
-
-
 const welcomEmailTemplate = `<!DOCTYPE html>
   <html>
   <head>
@@ -94,11 +92,107 @@ const welcomEmailTemplate = `<!DOCTYPE html>
       <p>Click the button below to explore:</p>
       <p><a href="{appLink}" target="_blank">Get Started</a></p>
       <p>If you have any questions, feel free to reach out to our support team.</p>
-      <p>Best regards,<br>The Team</p>
+      <p>Best regards,<br>The Ahmad Raza</p>
     </div>
   </body>
   </html>`
 
+
+// Reset password email varification
+  const ResetPasswordEmail = `<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome Email</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background-color: #f4f4f9;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #333333;
+    }
+    p {
+      color: #666666;
+    }
+    a {
+      color: #1a73e8;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <p>We received a request to reset the password for your account. Please use the OTP below to complete the process:</p>
+    <h1> Your OTP: {verificationCode} </h1>
+    <p>If you did not request a password reset, you can ignore this email. Your password will remain unchanged.</p>
+    <p>Md Ahmad Raza, <br>The Team</p>
+    <div class="footer">
+        <p>&copy; ${new Date().getFullYear()} Your Company. All rights reserved.</p
+    </div>
+  </div>
+</body>
+</html>
+`
+
+
+const WellcomeNewCreatePassword = `<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome Email</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background-color: #f4f4f9;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #333333;
+    }
+    p {
+      color: #666666;
+    }
+    a {
+      color: #1a73e8;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Hello {name} ,</h1>
+    <p>🎉 Your password has been successfully reset.</p>
+    <p>Your account is now secure, and you can log in using your new password.</p>
+    <p>Md Ahmad Raza, <br>The Team</p>
+    <div class="footer">
+        <p>&copy; ${new Date().getFullYear()} Your Company. All rights reserved.</p
+    </div>
+  </div>
+</body>
+</html>
+`
+
 export {
-    VerificationTamplate, welcomEmailTemplate
+    VerificationTamplate,
+    welcomEmailTemplate,
+    ResetPasswordEmail,
+    WellcomeNewCreatePassword
 }

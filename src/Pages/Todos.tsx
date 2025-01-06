@@ -6,18 +6,21 @@ import TodoItem from './TodoItem';
 import AddTodo from './AddTodo';
 import Model from './Model';
 import { useNavigate } from 'react-router-dom';
+
 const Todos: React.FC = () => {
-    const { notes, editNote, getallNotes, fetchUser }: any = useContextTodo();
+    const { notes, editNote, fetchUser,fetchallnotes }: any = useContextTodo();
     const [showModal, setShowModal] = useState(false);
     const [eid, setId] = useState(0);
     const [etitle, setEtitle] = useState("");
     const [edescription, setEdescription] = useState("");
     const [etag, setEtag] = useState("");
+
     let navigate = useNavigate();
     useEffect(() => {
         if (localStorage.getItem('token')) {
-            getallNotes();
+            fetchallnotes();
             fetchUser();
+            // fetchUsers();
         }
         else {
             navigate('/login');

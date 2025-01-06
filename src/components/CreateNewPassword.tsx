@@ -4,6 +4,7 @@ import { useContextTodo } from '../context/ContextProvider';
 import { FcGoogle } from "react-icons/fc";
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import axios from 'axios';
 
 
 const CreateNewPassword: React.FC = () => {
@@ -23,32 +24,27 @@ const CreateNewPassword: React.FC = () => {
     let navigate = useNavigate();
     const handleSubmitNewPassword = async (e: React.SyntheticEvent) => {
         e.preventDefault();
-        const response = await fetch(`${host}/api/user/usercreatenewpassword/${_id}/${authtoken}`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ password, code })
-        });
-        const json = await response.json();
-        if (json.success === true) {
-            toast.success("Password is new created successfully", {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            })
-            setEmail('');
+        try {
+            const response = await axios.post(`${host}/api/user/usercreatenewpassword/${_id}/${authtoken}`,
+                { password: password, code: code });
+            if (response.data.success === true) {
+                toast.success("Password is new created successfully", {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+                setEmail('');
 
-            setTimeout(() => {
-                navigate('/login');
-            }, 3000);
-        }
-        else {
+                setTimeout(() => {
+                    navigate('/login');
+                }, 3000);
+            }
+        } catch (error) {
             toast.error("Password is not created. Please check your password and otp", {
                 position: "top-center",
                 autoClose: 2000,
@@ -60,7 +56,9 @@ const CreateNewPassword: React.FC = () => {
                 theme: "light",
             })
         }
+
     }
+
     return (
         <div className='min-h-[100vh] w-full bg-[#f1f2f3]'>
             <div className='flex flex-col justify-center items-center py-10'>

@@ -3,44 +3,37 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { useContextTodo } from '../context/ContextProvider';
+import axios from 'axios';
 
 const ForgetPassword: React.FC = () => {
     // const [email, setEmail] = useState('');
-    const { email, setEmail}:any = useContextTodo();
+    const { email, setEmail }: any = useContextTodo();
     const host = "https://notes-app-qa3n.onrender.com";
     // const host = "http://localhost:4002";
     const navigate = useNavigate();
     const handleForgotPassword = async (e: React.SyntheticEvent) => {
         e.preventDefault();
-        const response = await fetch(`${host}/api/user/userforgotpassword`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ email })
-        })
-        const json = await response.json();
-        if (json.success === true) {
-            // localStorage.setItem('token', json.authtoken);
-            // alert("password is reset succussfully");
-            toast.success("Send OTP  succussfully", {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            })
-
-            // navigate(`/createnewpassword/${json.user}/${json.authtoken}`);
+        try {
+            const response = await axios.post(`${host}/api/user/userforgotpassword`,
+                { email: email });
             
-            setTimeout(() => {
-                navigate(`/createnewpassword/${json.user}/${json.authtoken}`);
-            }, 3000);
-        }
-        else {
+            if (response.data.success === true) {
+                toast.success("Send OTP  succussfully", {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+
+                setTimeout(() => {
+                    navigate(`/createnewpassword/${response.data.user}/${response.data.authtoken}`);
+                }, 3000);
+            }
+        } catch (error) {
             toast.error("Email Not found", {
                 position: "top-center",
                 autoClose: 2000,
@@ -51,9 +44,7 @@ const ForgetPassword: React.FC = () => {
                 progress: undefined,
                 theme: "light",
             })
-            console.log(json);
         }
-
     }
     return (
         <div className='min-h-[100vh] w-full bg-[#f1f2f3]'>

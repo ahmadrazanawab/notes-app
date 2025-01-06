@@ -2,7 +2,12 @@ import { asyncHandler } from "../Utility/AsyncHandler.js";
 import bcryptjs from "bcryptjs";
 import { User } from "../Models/user.model.js";
 import jwt from "jsonwebtoken";
-import { sendVarification, WelcomeEmail, ResetPasswordSet } from "../middleware/Email.js";
+import {
+    sendVarification,
+    WelcomeEmail,
+    ResetPasswordSet,
+    WelcomeCreateNewPassword
+} from "../middleware/Email.js";
 
 const UserRegister = asyncHandler(async (req, res) => {
     let { name, email, number, password } = req.body;
@@ -106,10 +111,9 @@ const UserChangePassword = asyncHandler(async (req, res) => {
     if (!password || !oldPassword) {
         res.status(401).json({ success: false, message: "Both old and new passwords are required" });
     }
-    if (oldPassword.length < 6) {
+    if (password.length < 6) {
         res.status(401).json({ success: false, message: "Password must be at least 6 characters!" });
     }
-
     const user = await User.findById(req.user.id);
     if (!user) {
         return res.status(404).json({ success: false, message: "User not found" });
@@ -156,12 +160,15 @@ const UserCreateNewPassword = asyncHandler(async (req, res) => {
     const { password, code } = req.body;
     const { id, authtoken } = req.params;
     if (!password || !code) {
-        return res.status(401).json({ success: false, error: "Password and OTP are required" });
+        return res.status(400).json({ success: false, error: "Password and OTP are required" });
+    }
+    if (password.length < 6) {
+        res.status(400).json({ success: false, message: "Password must be at least 6 characters!" });
     }
     const user = await User.findById(id);
     const user1 = await User.findOne({ verificationCode: code });
     if (!user1) {
-        return res.status(400).json({ success: false, message: "Invalid or Expired Code" });
+        return res.status(401).json({ success: false, message: "Invalid or Expired Code" });
     }
 
     if (user.isVerified === true) {
@@ -173,7 +180,7 @@ const UserCreateNewPassword = asyncHandler(async (req, res) => {
 
         user.verificationCode = undefined;
         await user.save();
-        await WelcomeEmail(user1.email, user1.name);
+        await WelcomeCreateNewPassword(user1.email, user1.name);
 
         res.status(200).json({ success: true, message: "Password new set Successfully" });
     }

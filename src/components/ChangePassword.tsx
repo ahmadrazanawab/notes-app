@@ -4,44 +4,43 @@ import { FcGoogle } from "react-icons/fc";
 import { useContextTodo } from '../context/ContextProvider';
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import axios from 'axios';
 
 const ChangePassword: React.FC = () => {
     const { user }: any = useContextTodo();
     const [passwords, setPasswords] = useState({ password: "", oldPassword: "" });
     const host = "https://notes-app-qa3n.onrender.com";
-    
+
     // const host = "http://localhost:4002";
     let navigate = useNavigate();
     const handleChangePassword = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         let { password, oldPassword } = passwords;
-        const response = await fetch(`${host}/api/user/changepassword`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": localStorage.getItem('token') || ""
-            },
-            body: JSON.stringify({ password, oldPassword })
-        })
-        const json = await response.json();
-        console.log(json);
-        if (json.success === true) {
-            toast.success("Password changed Successfully", {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            })
+        try {
+            const response = await axios.post(`${host}/api/user/changepassword`,
+                { password: password, oldPassword: oldPassword }, {
+                headers: {
+                    "auth-token": localStorage.getItem('token') || ""
+                }
+            });
 
-            setTimeout(() => {
-                navigate('/');
-            }, 3000);
-        }
-        else {
+            if (response.data.success === true) {
+                toast.success("Password changed Successfully", {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+
+                setTimeout(() => {
+                    navigate('/');
+                }, 3000);
+            }
+        } catch (error) {
             toast.error("Password is required or incorrect!", {
                 position: "top-center",
                 autoClose: 2000,
@@ -53,7 +52,6 @@ const ChangePassword: React.FC = () => {
                 theme: "light",
             })
         }
-
     }
     const onchange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPasswords({ ...passwords, [e.target.name]: e.target.value })

@@ -3,44 +3,42 @@ import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { useContextTodo } from '../context/ContextProvider';
+import axios from 'axios';
 
 const SignIn: React.FC = () => {
-    // const [credentials, setCredentials] = useState({ email: "", password: "" });
-    const { credentials, setCredentials}:any = useContextTodo();
+    const { credentials, setCredentials }: any = useContextTodo();
     let navigate = useNavigate();
     const host = "https://notes-app-qa3n.onrender.com";
     // const host = "http://localhost:4002";
+
+    // hadle submit sign in
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
+        const { email, password } = credentials;
 
-        const response = await fetch(`${host}/api/user/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email: credentials.email, password: credentials.password })
-        });
-        const json = await response.json();
-        if (json.success) {
-            //save the auth token and redirect
-            localStorage.setItem('token', json.authtoken);
-            toast.success("Logged in Successfully", {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
+        try {
+            const response = await axios.post(`${host}/api/user/login`,
+                { email: email, password: password });
 
-            setCredentials({ email: '', password: '' });
-            setTimeout(() => {
-                navigate("/");
-            }, 3000);
-        }
-        else {
+            if (response.data.success === true) {
+                //save the auth token and redirect
+                localStorage.setItem('token', response.data.authtoken);
+                toast.success("Logged in Successfully", {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                setCredentials({ email: '', password: '' });
+                setTimeout(() => {
+                    navigate("/");
+                }, 3000);
+            }
+        } catch (error) {
             toast.error("Invalid crendentials. Please try again.", {
                 position: "top-center",
                 autoClose: 2000,
@@ -53,7 +51,6 @@ const SignIn: React.FC = () => {
             })
         }
     }
-    // Enter the 6-digit verification code to sign up
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value })
     }
@@ -66,7 +63,7 @@ const SignIn: React.FC = () => {
                     <label htmlFor="email" className='font-serif'>Email</label>
                     <input type="email" value={credentials.email || ""} onChange={onChange} className='px-1 py-1 mb-1 border-[1px] border-gray-900 rounded outline-none' name="email" id="email" placeholder='Enter your email or number' />
                     <label htmlFor="password" className='font-serif mt-1 flex sm:flex-row flex-col justify-between '>
-                    <span className='sm:block hidden'>Password</span><Link to="/forgetpassword" className='text-sm flex text-[#007ac6] font-serif'>Forgot Password</Link><span className='sm:hidden'>Password</span>
+                        <span className='sm:block hidden'>Password</span><Link to="/forgetpassword" className='text-sm flex text-[#007ac6] font-serif'>Forgot Password</Link><span className='sm:hidden'>Password</span>
                     </label>
                     <input type="password" value={credentials.password || ""} onChange={onChange} className='px-1 py-1 mb-1 border-[1px] border-gray-900 rounded outline-none' name="password" id="password" placeholder='Enter your password' />
                     <button type='submit' className='border-[1px] my-3 border-gray-900 px-2 py-1 cursor-pointer bg-[#009dff] text-white rounded'>Login</button>
