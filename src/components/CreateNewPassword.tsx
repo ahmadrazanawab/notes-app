@@ -10,7 +10,7 @@ import axios from 'axios';
 const CreateNewPassword: React.FC = () => {
     const [password, setPassword] = useState('');
     const [code, setCode] = useState('');
-    const { email, setEmail }: any = useContextTodo();
+    const { email, setEmail ,mode }: any = useContextTodo();
 
 
     const host = "https://notes-app-qa3n.onrender.com";
@@ -60,17 +60,33 @@ const CreateNewPassword: React.FC = () => {
     }
 
     return (
-        <div className='min-h-[100vh] w-full bg-[#f1f2f3]'>
+        <div className={`min-h-[91vh] w-full ${mode === true ? 'bg-[#2c2c2c] text-white':'bg-[#f1f2f3] text-black'}`}>
             <div className='flex flex-col justify-center items-center py-10'>
-                <form action="" onSubmit={handleSubmitNewPassword} className='flex flex-col xl:w-[30%] md:w-[50%] sm:w-[70%] w-[90%] my-2 bg-white shadow-md p-6 rounded'>
+                <form action=""
+                    onSubmit={handleSubmitNewPassword}
+                    className={`flex flex-col xl:w-[30%] md:w-[50%] sm:w-[70%] w-[90%] my-2 ${mode === true ?'bg-[#212529] text-white' :'bg-white text-gray-900'} shadow-md p-6 rounded`}>
+                    
                     <ToastContainer />
                     <div className='flex justify-center  items-center'>
                         <h4 className='flex justify-center shadow-sm bg-slate-100 rounded px-2 mb-4 text-xl  text-center text-gray-900 font-serif'><FcGoogle className='w-6' /> <span className='text-sm text-[#009dff] underline'>{email}</span></h4>
                     </div>
+
                     <label htmlFor="password" className='font-serif'>Enter New Password</label>
-                    <input type="password" value={password} onChange={(e) => { setPassword(e.target.value) }} className='px-1 py-1 mb-1 border-[1px] border-gray-900 rounded outline-none' name="password" id="password" placeholder='Enter your new password' />
+                    <input type="password"
+                        value={password}
+                        onChange={(e) => { setPassword(e.target.value) }}
+                        className={`px-1 py-1 mb-1 border-[1px] ${mode === true ? 'bg-[#212529]' :'bg-white'} rounded outline-none`}
+                        name="password" id="password"
+                        placeholder='Enter your new password' />
+                    
                     <label htmlFor="code" className='font-serif'>Enter OTP</label>
-                    <input type="text" value={code} onChange={(e) => { setCode(e.target.value) }} className='px-1 py-1 mb-1 border-[1px] border-gray-900 rounded outline-none' name="otp" id="otp" placeholder='Enter your otp' />
+                    <input type="text"
+                        value={code}
+                        onChange={(e) => { setCode(e.target.value) }}
+                        className={`px-1 py-1 mb-1 border-[1px] ${mode === true ? 'bg-[#212529]' :'bg-white'} rounded outline-none`}
+                        name="otp" id="otp"
+                        placeholder='Enter your otp' />
+                    
                     <button type='submit' className='border-[1px] my-3 border-gray-900 px-2 py-1 cursor-pointer bg-[#009dff] text-white rounded'>Change Password</button>
                 </form>
             </div>

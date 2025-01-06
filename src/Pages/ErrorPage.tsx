@@ -1,11 +1,13 @@
 import React from 'react'
 import { Link, useRouteError } from 'react-router-dom'
+import { useContextTodo } from '../context/ContextProvider'
 
 const ErrorPage: React.FC = () => {
-    const error = useRouteError() as {data:string,status:number}
+    const error = useRouteError() as { data: string, status: number }
+    const {mode }:any=useContextTodo();
     console.log(error);
   return (
-    <div className='min-h-[100vh] pt-20 bg-slate-200'>
+      <div className={`min-h-[100vh] pt-20 ${mode === true ? 'bg-[#2c2c2c] text-white':'bg-slate-200 text-black'}`}>
           {(error.status === 404) ?<div className='flex flex-col mx-4 justify-center items-center'>
               <h2 className='md:text-6xl mb-2 text-2xl font-serif'>404</h2>
               <h2 className='md:text-3xl my-1 text-xl font-serif '>Ooops! Page Not Found</h2>

@@ -24,6 +24,8 @@ interface ContextTodos {
     setCredentials: (credentials: credentialsProps[]) => void;
     email: string,
     setEmail: (email: string) => void;
+    mode: boolean;
+    setMode: (mode: boolean) => void;
 }
 
 const ContextApi = createContext<ContextTodos | null>(null);
@@ -35,6 +37,7 @@ const ContextProvider: React.FC<childrenProps> = ({ children }) => {
     const [credentials, setCredentials] = useState<credentialsProps[]>([]);
     const [email, setEmail] = useState<string>('');
     const [user, setUser] = useState<getUserProps[]>([]);
+    const [mode, setMode] = useState<boolean>(true);
 
     const fetchUser = async () => {
        try {
@@ -136,7 +139,8 @@ const ContextProvider: React.FC<childrenProps> = ({ children }) => {
             credentials, setCredentials,
             notes, setNotes, addNote,
             deleteNote, editNote, fetchallnotes,
-            fetchUser, user, setUser, email, setEmail
+            fetchUser, user, setUser,
+            email, setEmail,mode,setMode
         }}>
             {children}
         </ContextApi.Provider>

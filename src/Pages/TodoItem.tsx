@@ -12,12 +12,12 @@ interface TodoItemProps {
 
   
 const TodoItem: React.FC<TodoItemProps> = (props) => {
-    const { deleteNote }: any = useContextTodo();
+    const { deleteNote,mode }: any = useContextTodo();
     const {note,UpdateNote,showModalBtn } = props;
   return (
     <div className='w-full mx-2'>
           <div className='flex justify-between items-center'>
-              <h4 className='text-xl font-serif text-gray-900 my-1  sm:mx-2 mx-1'>{note.title}</h4>
+              <h4 className={`text-xl ${mode === true ?'text-white':'text-gray-900'} font-serif   my-1  sm:mx-2 mx-1`}>{note.title}</h4>
               <span className='flex justify-between sm:mx-2'>
                   <MdEditCalendar className='sm:mx-1 cursor-pointer ' onClick={() => {showModalBtn(), UpdateNote(note) }} size={25} />
                   <RiDeleteBin6Line className='mx-1 cursor-pointer' onClick={() => { deleteNote(note._id) }} size={25} /></span>

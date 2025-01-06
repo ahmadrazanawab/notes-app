@@ -4,8 +4,10 @@ import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
+import { useContextTodo } from '../context/ContextProvider';
 
 const OtpVerify: React.FC = () => {
+    const { mode }: any = useContextTodo()
     const [code, setCode] = useState<string>('');
     const navigate = useNavigate();
     const host = "https://notes-app-qa3n.onrender.com";
@@ -50,16 +52,31 @@ const OtpVerify: React.FC = () => {
     };
     return (
         <>
-            <div className='w-full md:min-h-[80vh] bg-[#f1f2f3]'>
+            <div className={`w-full min-h-[91vh] ${mode === true ? 'bg-[#2c2c2c] text-white' : 'bg-[#f1f2f3] text-black'}`}>
                 <div className='flex flex-col justify-center items-center py-10'>
                     <ToastContainer />
-                    <form action="" onSubmit={handleOtpSubmit} className='flex flex-col xl:w-[30%] md:w-[50%] sm:w-[70%] w-[90%] my-2 bg-white shadow-sm p-6 rounded'>
+                    <form action=""
+                        onSubmit={handleOtpSubmit}
+                        className={`flex flex-col xl:w-[30%] md:w-[50%] sm:w-[70%] w-[90%] my-2 ${mode === true ? 'bg-[#212529] text-white' : 'bg-white text-gray-900'} shadow-sm p-6 rounded`}>
                         <div className='flex justify-center  items-center'>
-                            <h4 className='flex justify-center shadow-sm bg-slate-100 rounded px-2 mb-4 text-xl py-1 text-center text-gray-900 font-serif'><FcGoogle className='w-6' /> <span className='text-sm text-[#009dff] underline'>gmail.com</span></h4>
+                            <h4
+                                className={`flex justify-center shadow-sm  ${mode === true ? 'bg-[#212529] text-white':'bg-slate-100'} rounded px-2 mb-4 text-xl py-1 text-center font-serif`}>
+                                <FcGoogle className='w-6' />
+                                <span className='text-sm text-[#009dff] underline'>gmail.com</span>
+                            </h4>
                         </div>
                         <label htmlFor="email" className='font-serif text-sm '>Enter the 6-digit verification code to sign up</label>
-                        <input type="text" value={code} onChange={onChange} className='px-1 py-1 mb-1 border-[1px] border-gray-900 rounded outline-none' name="code" id="code" placeholder='Enter OTP' />
-                        <button type='submit' className='border-[1px] my-3 border-gray-900 px-2 py-1 cursor-pointer bg-[#009dff] text-white rounded'>Sign Up</button>
+                        <input type="text"
+                            value={code}
+                            onChange={onChange}
+                            className={`px-1 py-1 mb-1 border-[1px] ${mode === true ?'bg-[#212529] text-white' :'bg-white text-gray-900'} rounded outline-none`}
+                            name="code" id="code"
+                            placeholder='Enter OTP' />
+
+                        <button type='submit'
+                            className='border-[1px] my-3 border-gray-900 px-2 hover:scale-95 py-1 cursor-pointer bg-[#009dff] text-white rounded'>
+                            Sign Up
+                        </button>
                     </form>
                 </div>
             </div>

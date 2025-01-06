@@ -6,7 +6,7 @@ import { useContextTodo } from '../context/ContextProvider';
 import axios from 'axios';
 
 const SignIn: React.FC = () => {
-    const { credentials, setCredentials }: any = useContextTodo();
+    const { credentials, setCredentials,mode }: any = useContextTodo();
     let navigate = useNavigate();
     const host = "https://notes-app-qa3n.onrender.com";
     // const host = "http://localhost:4002";
@@ -55,20 +55,35 @@ const SignIn: React.FC = () => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value })
     }
     return (
-        <div className='w-full bg-[#f1f2f3]'>
+        <div className={`w-full min-h-[100vh] ${mode === true ? 'bg-[#2c2c2c] text-white':'bg-[#f1f2f3] text-black'} `}>
             <div className='flex flex-col justify-center items-center py-10'>
                 <ToastContainer />
-                <form action="" onSubmit={handleSubmit} className='flex flex-col xl:w-[30%] md:w-[50%] sm:w-[70%] w-[90%] sm:mx-0 mx-2 my-2 bg-white shadow-sm p-6 rounded'>
-                    <h4 className='md:text-2xl text-xl py-3 text-center text-gray-900 font-serif'>Sign In</h4>
+                <form action=""
+                    onSubmit={handleSubmit}
+                    className={`flex flex-col xl:w-[30%] md:w-[50%] sm:w-[70%] w-[90%] sm:mx-0 mx-2 my-2 ${mode === true ?'bg-[#212529] text-white' :'bg-white text-gray-900'} shadow-sm p-6 rounded`}>
+                    <h4 className='md:text-2xl text-xl py-3 text-center  font-serif'>Sign In</h4>
                     <label htmlFor="email" className='font-serif'>Email</label>
-                    <input type="email" value={credentials.email || ""} onChange={onChange} className='px-1 py-1 mb-1 border-[1px] border-gray-900 rounded outline-none' name="email" id="email" placeholder='Enter your email or number' />
+                    <input type="email"
+                        value={credentials.email || ""}
+                        onChange={onChange}
+                        className={`px-1 py-1 mb-1 border-[1px] ${mode === true ?'bg-[#212529]':'bg-white'} rounded outline-none`}
+                        name="email" id="email"
+                        placeholder='Enter your email or number' />
+                    
                     <label htmlFor="password" className='font-serif mt-1 flex sm:flex-row flex-col justify-between '>
                         <span className='sm:block hidden'>Password</span><Link to="/forgetpassword" className='text-sm flex text-[#007ac6] font-serif'>Forgot Password</Link><span className='sm:hidden'>Password</span>
                     </label>
-                    <input type="password" value={credentials.password || ""} onChange={onChange} className='px-1 py-1 mb-1 border-[1px] border-gray-900 rounded outline-none' name="password" id="password" placeholder='Enter your password' />
+
+                    <input type="password"
+                        value={credentials.password || ""}
+                        onChange={onChange}
+                        className={`px-1 py-1 mb-1 border-[1px] ${mode === true ?'bg-[#212529]':'bg-white'} rounded outline-none`}
+                        name="password" id="password"
+                        placeholder='Enter your password' />
+                    
                     <button type='submit' className='border-[1px] my-3 border-gray-900 px-2 py-1 cursor-pointer bg-[#009dff] text-white rounded'>Login</button>
                     <div className='flex justify-center'>
-                        <p className='text-gray-900 my-2 text-sm font-serif'>Don't have an account? <Link to='/signUp' className='tracking-tighter text-[#007ac6] underline font-sans'>Sign Up</Link> </p>
+                        <p className='my-2 text-sm font-serif'>Don't have an account? <Link to='/signUp' className='tracking-tighter text-[#007ac6] underline font-sans'>Sign Up</Link> </p>
                     </div>
                 </form>
             </div>
