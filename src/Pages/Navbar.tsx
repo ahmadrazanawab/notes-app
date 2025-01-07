@@ -6,12 +6,11 @@ import AuthModal from '../components/AuthModal';
 import { useContextTodo } from '../context/ContextProvider';
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-import { CiLight } from "react-icons/ci";
-import { MdOutlineDarkMode } from "react-icons/md";
+import SwitchButtonMode from '../components/SwitchButtonMode';
 
 const Navbar: React.FC = () => {
     const [open, setOpen] = useState<boolean>(false);
-    const { user, mode, setMode }: any = useContextTodo();
+    const { user, mode}: any = useContextTodo();
     interface link {
         id: number;
         name: string;
@@ -38,44 +37,22 @@ const Navbar: React.FC = () => {
         }, 2000);
     }
 
-    const [showModal, setShowModal] = useState<boolean>(true);
+    const [showModal, setShowModal] = useState<boolean>(false);
+
     const showModalBtn = () => {
-        setShowModal(true)
+        if (showModal === false) {
+            setShowModal(true)
+        }
+        else {
+            setShowModal(false); 
+        }
+        
     }
     const onClosed = (e: React.SyntheticEvent) => {
         e.preventDefault();
         setShowModal(false);
     }
-    // mode alert 
-    const handleDarkAndLight = (e: React.SyntheticEvent) => {
-        e.preventDefault();
-        if (mode === true) {
-            toast.success("Light Mode has been enabled", {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-            setMode(false);
-        }
-        else {
-            toast.success("Dark Mode has been enabled", {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
-            setMode(true);
-        }
-    }
+    
     // Combined handler
     const handleBothActions = (e: React.SyntheticEvent) => {
         handleLogout(e);
@@ -135,13 +112,10 @@ const Navbar: React.FC = () => {
 
 
             <div className='flex justify-center items-center'>
-                <div className='flex md:mx-1' onClick={() => {setMode(!mode)}}>
-                    {!mode === true ? <MdOutlineDarkMode onClick={handleDarkAndLight} className='md:size-6 cursor-pointer text-black size-5' />
-                        : <CiLight onClick={handleDarkAndLight} className='md:size-7 size-5 cursor-pointer text-white font-serif' />}
-                </div>
+                <div className={`${!localStorage.getItem('token')? 'mr-3':'mr-0'}`}> <SwitchButtonMode/> </div>
                 {!localStorage.getItem('token') ? (<>
-                    <Link to='/login' className='border-[1px] border-gray-900 text-sm px-2 py-1 md:mx-1 rounded bg-sky-600 mx-1 text-white font-serif md:my-0'>Login</Link>
-                    <Link to='/signUp' className='border-[1px] border-gray-900 text-sm px-2 py-1 md:mr-4 mr-2 rounded bg-sky-600 mx-1 text-white font-serif md:my-0'>Sign Up</Link>
+                    <Link to='/login' className='border-[1px] sm:block hidden border-gray-900 text-sm px-2 py-1 md:mx-1 rounded bg-sky-600 mx-1 text-white font-serif md:my-0'>Login</Link>
+                    <Link to='/signUp' className='border-[1px] sm:block hidden border-gray-900 text-sm px-2 py-1 md:mr-4 mr-2 rounded bg-sky-600 mx-1 text-white font-serif md:my-0'>Sign Up</Link>
                 </>) : <>
                     <button onClick={showModalBtn}
                         className={`w-10 h-10 mx-3 shadow-sm   font-serif text-xl hover:border-[2px] rounded-full ${mode === true ? 'border-[2px] border-white bg-green-600 text-white' : 'border-[1px] border-gray-900 bg-green-600 text-white'} `}>
