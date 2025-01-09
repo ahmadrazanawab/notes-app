@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
         
     ]
     return (
-        <div className='bg-slate-500  h-20 py-5 flex items-center justify-center'>
+        <div className='bg-slate-500  max-h-[30vh] py-5 flex items-center justify-center'>
             <div>
                 <ul className='flex'>
                     {

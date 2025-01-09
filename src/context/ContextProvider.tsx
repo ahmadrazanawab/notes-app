@@ -15,7 +15,6 @@ interface ContextTodos {
     addNote: (title: string, descriptin: string, tag: string) => void;
     deleteNote: (id: number) => void;
     editNote: (id: number, title: string, descriptin: string, tag: string) => void;
-    // fetchUsers: () => void;
     fetchallnotes: () => void;
     fetchUser: () => void;
     user: getUserProps[];
@@ -24,8 +23,14 @@ interface ContextTodos {
     setCredentials: (credentials: credentialsProps[]) => void;
     email: string,
     setEmail: (email: string) => void;
+    // theme dark mode and light mode
     mode: boolean;
     setMode: (mode: boolean) => void;
+    // theme item note color
+    textColor: string;
+    setTextColor: (color: string) => void;
+    bgColor: string;
+    setBgColor: (color: string) => void;
 }
 
 const ContextApi = createContext<ContextTodos | null>(null);
@@ -38,6 +43,9 @@ const ContextProvider: React.FC<childrenProps> = ({ children }) => {
     const [email, setEmail] = useState<string>('');
     const [user, setUser] = useState<getUserProps[]>([]);
     const [mode, setMode] = useState<boolean>(true);
+
+    const [textColor, setTextColor] = useState<string>('text-black');
+    const [bgColor, setBgColor] = useState<string>('bg-white');
 
     const fetchUser = async () => {
        try {
@@ -140,7 +148,8 @@ const ContextProvider: React.FC<childrenProps> = ({ children }) => {
             notes, setNotes, addNote,
             deleteNote, editNote, fetchallnotes,
             fetchUser, user, setUser,
-            email, setEmail,mode,setMode
+            email, setEmail, mode, setMode,
+            textColor, setTextColor, bgColor, setBgColor
         }}>
             {children}
         </ContextApi.Provider>

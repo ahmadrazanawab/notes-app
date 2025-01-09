@@ -57,7 +57,7 @@ const ChangePassword: React.FC = () => {
         setPasswords({ ...passwords, [e.target.name]: e.target.value })
     }
     return (
-        <div className={`min-h-[91vh] w-full ${mode === true ? 'bg-[#2c2c2c] text-white':'bg-[#f1f2f3] text-gray-900'}`}>
+        <div className={`pt-10 min-h-[91vh] w-full ${mode === true ? 'bg-[#2c2c2c] text-white':'bg-[#f1f2f3] text-gray-900'}`}>
             <div className='flex flex-col justify-center items-center py-10'>
                 <ToastContainer />
                 <form action=""

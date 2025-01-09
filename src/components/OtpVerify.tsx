@@ -52,7 +52,7 @@ const OtpVerify: React.FC = () => {
     };
     return (
         <>
-            <div className={`w-full min-h-[91vh] ${mode === true ? 'bg-[#2c2c2c] text-white' : 'bg-[#f1f2f3] text-black'}`}>
+            <div className={`pt-10 w-full min-h-[91vh] ${mode === true ? 'bg-[#2c2c2c] text-white' : 'bg-[#f1f2f3] text-black'}`}>
                 <div className='flex flex-col justify-center items-center py-10'>
                     <ToastContainer />
                     <form action=""

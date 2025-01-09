@@ -55,13 +55,13 @@ const SignIn: React.FC = () => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value })
     }
     return (
-        <div className={`w-full min-h-[100vh] ${mode === true ? 'bg-[#2c2c2c] text-white':'bg-[#f1f2f3] text-black'} `}>
+        <div className={`pt-10 w-full min-h-[100vh] ${mode === true ? 'bg-[#2c2c2c] text-white':'bg-[#f1f2f3] text-black'} `}>
             <div className='flex flex-col justify-center items-center py-10'>
                 <ToastContainer />
                 <form action=""
                     onSubmit={handleSubmit}
                     className={`flex flex-col xl:w-[30%] md:w-[50%] sm:w-[70%] w-[90%] sm:mx-0 mx-2 my-2 ${mode === true ?'bg-[#212529] text-white' :'bg-white text-gray-900'} shadow-sm p-6 rounded`}>
-                    <h4 className='md:text-2xl text-xl py-3 text-center  font-serif'>Sign In</h4>
+                    <h4 className='md:text-2xl text-xl pb-3 pt-1 text-center  font-serif'>Sign In</h4>
                     <label htmlFor="email" className='font-serif'>Email</label>
                     <input type="email"
                         value={credentials.email || ""}

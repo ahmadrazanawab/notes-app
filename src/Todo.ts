@@ -4,6 +4,7 @@ export interface Todo{
     description: string;
     isActive: boolean;
     tag: string;
+    createdAt?: string | Date;
 }
 
 

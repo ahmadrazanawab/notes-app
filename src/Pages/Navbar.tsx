@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { MdMenu } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
 import AuthModal from '../components/AuthModal';
@@ -62,12 +62,12 @@ const Navbar: React.FC = () => {
         { id: 1, name: 'Home', to: '/', },
         { id: 2, name: 'About', to: '/about' },
     ]
-
+    let location = useLocation();
     return (
-        <nav className={`shadow-md flex ${mode === true ? 'bg-black' : 'bg-[#f8f9f9]'} justify-between  min-h-[60px] items-center   border-b-2 border-blue-500 `}>
+        <nav className={`shadow-md fixed w-full flex ${mode === true ? 'bg-black' : 'bg-[#f8f9f9]'} justify-between  min-h-[60px] items-center   border-b-2 border-blue-500 `}>
             <div className='flex'>
                 <div>
-                    <Link to='/' className='text-blue-600 hidden md:block  text-xl font-serif mx-4'>Todo<strong className='text-green-600'>App</strong></Link>
+                    <Link to='/' className={`text-blue-600 hidden md:block  text-xl font-serif mx-4`}>Todo<strong className='text-green-600'>App</strong></Link>
                     <div className={`md:hidden ${mode === true ? 'text-white' : 'text-black'}`} onClick={() => { setOpen(!open) }}>
                         {
                             !open ? <MdMenu size={30} className='mx-4' />
@@ -81,7 +81,7 @@ const Navbar: React.FC = () => {
                         {
                             links.map(({ id, name, to, style }) => (
                                 <li key={id} onClick={() => { setOpen(false) }} className='flex items-center justify-center md:mx-4 md:my-0 my-4  text-xl'>
-                                    <Link to={to} className={`${style}`}>{name}</Link>
+                                    <Link to={to} className={`${style} ${location.pathname === to ?'text-pink-600':''}`}>{name}</Link>
                                 </li>
                             ))
                         }

@@ -13,8 +13,8 @@ const AddTodo: React.FC = () => {
     const [note, setNote] = useState<Note>({ title: '', description: '', tag: '' });
     const handleAddTodo = (e: React.SyntheticEvent) => {
         e.preventDefault();
-        if (!note.title || !note.description) {
-            toast.error("title and description can not be blank!", {
+        if (!note.title || !note.description || !note.tag) {
+            toast.error("title, tag and description can not be blank!", {
                 position: "top-center",
                 autoClose: 1000,
                 hideProgressBar: false,
@@ -56,10 +56,11 @@ const AddTodo: React.FC = () => {
         setNote({ ...note, [e.target.name]: e.target.value });
     }
     return (
-        <div className={`${mode === true ? 'bg-[#2c2c2c] text-white' : 'bg-slate-50 text-gray-900'}`}>
+        <div className={`pt-10 ${mode === true ? 'bg-[#2c2c2c] text-white' : 'bg-slate-50 text-gray-900'}`}>
             <div className='pt-10 pb-4 flex justify-center items-center'>
                 <ToastContainer />
                 <form action="" onSubmit={handleAddTodo} className={`flex flex-col w-full  ${mode === true ? 'bg-[#212529] text-white' : 'bg-white text-gray-900'} md:mx-20 mx-4 p-6 shadow-md rounded`}>
+                    <h2 className='sm:text-2xl  text-xl md:text-start text-center mb-2 font-serif'>Add a Note</h2>
                     <label htmlFor="title">Title</label>
                     <input type="text"
                         value={note.title}

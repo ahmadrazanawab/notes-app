@@ -55,8 +55,9 @@ const SignUp: React.FC = () => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value })
     }
     return (
-        <div className={`w-full min-h-[100vh] ${mode === true ? 'bg-[#2c2c2c] text-white':'bg-[#f1f2f3] text-black'}`}>
+        <div className={`pt-16 w-full min-h-[100vh] ${mode === true ? 'bg-[#2c2c2c] text-white':'bg-[#f1f2f3] text-black'}`}>
             <div className='flex flex-col justify-center items-center py-2'>
+                
                 <form action=""
                     onSubmit={handleSubmit}
                     className={`flex flex-col md:w-[50%] xl:w-[30%] sm:w-[70%] w-[90%] my-2 ${mode === true ?'bg-[#212529] text-white' :'bg-white text-gray-900'} shadow-sm p-6 rounded`}>

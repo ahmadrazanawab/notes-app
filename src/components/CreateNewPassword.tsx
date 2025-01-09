@@ -60,7 +60,7 @@ const CreateNewPassword: React.FC = () => {
     }
 
     return (
-        <div className={`min-h-[91vh] w-full ${mode === true ? 'bg-[#2c2c2c] text-white':'bg-[#f1f2f3] text-black'}`}>
+        <div className={`pt-10 min-h-[91vh] w-full ${mode === true ? 'bg-[#2c2c2c] text-white':'bg-[#f1f2f3] text-black'}`}>
             <div className='flex flex-col justify-center items-center py-10'>
                 <form action=""
                     onSubmit={handleSubmitNewPassword}
