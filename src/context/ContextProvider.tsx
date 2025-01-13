@@ -26,11 +26,9 @@ interface ContextTodos {
     // theme dark mode and light mode
     mode: boolean;
     setMode: (mode: boolean) => void;
-    // theme item note color
-    textColor: string;
-    setTextColor: (color: string) => void;
-    bgColor: string;
-    setBgColor: (color: string) => void;
+    // Loading 
+    loading: boolean;
+    setLoading: (loading: boolean) => void;
 }
 
 const ContextApi = createContext<ContextTodos | null>(null);
@@ -43,9 +41,7 @@ const ContextProvider: React.FC<childrenProps> = ({ children }) => {
     const [email, setEmail] = useState<string>('');
     const [user, setUser] = useState<getUserProps[]>([]);
     const [mode, setMode] = useState<boolean>(true);
-
-    const [textColor, setTextColor] = useState<string>('text-black');
-    const [bgColor, setBgColor] = useState<string>('bg-white');
+    const [loading, setLoading] = useState(false);
 
     const fetchUser = async () => {
        try {
@@ -148,8 +144,7 @@ const ContextProvider: React.FC<childrenProps> = ({ children }) => {
             notes, setNotes, addNote,
             deleteNote, editNote, fetchallnotes,
             fetchUser, user, setUser,
-            email, setEmail, mode, setMode,
-            textColor, setTextColor, bgColor, setBgColor
+            email, setEmail, mode, setMode,loading, setLoading,
         }}>
             {children}
         </ContextApi.Provider>

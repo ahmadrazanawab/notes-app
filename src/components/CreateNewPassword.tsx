@@ -5,12 +5,13 @@ import { FcGoogle } from "react-icons/fc";
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
+import Spinner from '../Pages/Spinner';
 
 
 const CreateNewPassword: React.FC = () => {
     const [password, setPassword] = useState('');
     const [code, setCode] = useState('');
-    const { email, setEmail ,mode }: any = useContextTodo();
+    const { email, setEmail ,mode,loading, setLoading }: any = useContextTodo();
 
 
     const host = "https://notes-app-qa3n.onrender.com";
@@ -25,8 +26,10 @@ const CreateNewPassword: React.FC = () => {
     const handleSubmitNewPassword = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         try {
+            setLoading(true)
             const response = await axios.post(`${host}/api/user/usercreatenewpassword/${_id}/${authtoken}`,
                 { password: password, code: code });
+            setLoading(false);
             if (response.data.success === true) {
                 toast.success("Password is new created successfully", {
                     position: "top-center",
@@ -45,6 +48,7 @@ const CreateNewPassword: React.FC = () => {
                 }, 3000);
             }
         } catch (error) {
+            setLoading(false);
             toast.error("Password is not created. Please check your password and otp", {
                 position: "top-center",
                 autoClose: 2000,
@@ -62,9 +66,10 @@ const CreateNewPassword: React.FC = () => {
     return (
         <div className={`pt-10 min-h-[91vh] w-full ${mode === true ? 'bg-[#2c2c2c] text-white':'bg-[#f1f2f3] text-black'}`}>
             <div className='flex flex-col justify-center items-center py-10'>
-                <form action=""
+                <div className='my-3'>{loading && <Spinner/> }</div>
+                {!loading && (<form action=""
                     onSubmit={handleSubmitNewPassword}
-                    className={`flex flex-col xl:w-[30%] md:w-[50%] sm:w-[70%] w-[90%] my-2 ${mode === true ?'bg-[#212529] text-white' :'bg-white text-gray-900'} shadow-md p-6 rounded`}>
+                    className={`flex flex-col xl:w-[30%] md:w-[50%] sm:w-[70%] w-[90%] my-2 ${mode === true ? 'bg-[#212529] text-white' : 'bg-white text-gray-900'} shadow-md p-6 rounded`}>
                     
                     <ToastContainer />
                     <div className='flex justify-center  items-center'>
@@ -75,7 +80,7 @@ const CreateNewPassword: React.FC = () => {
                     <input type="password"
                         value={password}
                         onChange={(e) => { setPassword(e.target.value) }}
-                        className={`px-1 py-1 mb-1 border-[1px] ${mode === true ? 'bg-[#212529]' :'bg-white'} rounded outline-none`}
+                        className={`px-1 py-1 mb-1 border-[1px] ${mode === true ? 'bg-[#212529]' : 'bg-white'} rounded outline-none`}
                         name="password" id="password"
                         placeholder='Enter your new password' />
                     
@@ -83,12 +88,12 @@ const CreateNewPassword: React.FC = () => {
                     <input type="text"
                         value={code}
                         onChange={(e) => { setCode(e.target.value) }}
-                        className={`px-1 py-1 mb-1 border-[1px] ${mode === true ? 'bg-[#212529]' :'bg-white'} rounded outline-none`}
+                        className={`px-1 py-1 mb-1 border-[1px] ${mode === true ? 'bg-[#212529]' : 'bg-white'} rounded outline-none`}
                         name="otp" id="otp"
                         placeholder='Enter your otp' />
                     
                     <button type='submit' className='border-[1px] my-3 border-gray-900 px-2 py-1 cursor-pointer bg-[#009dff] text-white rounded'>Change Password</button>
-                </form>
+                </form>)}
             </div>
         </div>
     )
